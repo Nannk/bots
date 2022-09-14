@@ -3,7 +3,8 @@ import requests
 import re
 from io import BytesIO
 
-nyabot = discord.Client()
+intents = discord.Intents(guild_messages =  True, guilds = True, messages = True, emojis = True, webhooks = True, message_content = True )
+nyabot = discord.Client(intents=intents)
 
 async def fake(message):
     targetuserid = message.author.id
@@ -44,23 +45,23 @@ async def on_message(message):
         if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list())):
             return
 
-        if(list(message.content)[-1] == '?'):
+        if(str(message.content)[-1] == '?'):
             btwmessage = oldmessage[:-1]
             newmessage = f'{btwmessage}, nya~ ?'
 
-        elif(list(message.content)[-1] == '!'):
+        elif(str(message.content)[-1] == '!'):
             btwmessage = oldmessage[:-1]
             newmessage = f'{btwmessage}, nya~ !'
 
-        elif(list(message.content)[-1] == '?'):
+        elif(str(message.content)[-1] == '?'):
             btwmessage = oldmessage[:-1]
             newmessage = f'{btwmessage}, nya~ ?'
 
-        elif(list(message.content)[-1] == '.'):
+        elif(str(message.content)[-1] == '.'):
             btwmessage = oldmessage[:-1]
             newmessage = f'{btwmessage}, nya~'
 
-        elif(list(message.content)[-1] == ','):
+        elif(str(message.content)[-1] == ','):
             newmessage = f'{oldmessage} nya~'
 
         else:
@@ -72,5 +73,6 @@ async def on_message(message):
         # await fake(message)    
         await message.channel.send(newmessage)
         return
-
+    
 nyabot.run('MTAwOTk5MzIwNzI0MjgzODA5Ng.G1Dlsm.XSZQtMhNE0hgCRQWlB5zI14lz8kI8lgX1HJnfg')
+

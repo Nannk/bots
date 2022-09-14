@@ -1,17 +1,18 @@
 import discord
 import requests
+from PIL import Image
 from io import BytesIO
 
-nyabot = discord.Client()
+intents = discord.Intents(guild_messages =  True, guilds = True, messages = True, emojis = True, webhooks = True, message_content = True )
+nyabot = discord.Client(intents=intents)
 
 async def pfpchange(targetImageUrl):
+    print(targetImageUrl)
     newpfp = requests.get(targetImageUrl)
-    with BytesIO(newpfp.content) as imagePfp:
+    with Image.open(BytesIO(newpfp.content)) as imagePfp:
+        #img=Image.open(BytesIO(newpfp.content))
         await nyabot.user.edit(avatar=imagePfp)
     return
-
-async def default():
-    await nyabot.user.edit(username = 'nya.bot.maki')
 
 @nyabot.event
 async def on_ready():
