@@ -1,9 +1,13 @@
+
+# Inspired by CoolansX#7127`s Waifu bot
+# Many thanks to CoolansX#7127 for his help with Regex
+
 import discord
 import requests
 from PIL import Image
 from io import BytesIO
 
-intents = discord.Intents(guild_messages =  True, guilds = True, messages = True, emojis = True, webhooks = True, message_content = True )
+intents = discord.Intents(guild_messages =  True, guilds = True, messages = True, emojis = True, message_content = True )
 nyabot = discord.Client(intents=intents)
 
 async def pfpchange(targetImageUrl):
@@ -77,4 +81,4 @@ async def on_message(message):
         await message.channel.send(newmessage)
         return
 
-nyabot.run('')
+nyabot.run('MTAyMDc5OTQ4MjMxODgyMzQ4NQ.GT64bx.2_JTVx5x-cmZQqjLPoAYwMFN0YaMTjNLntdCns')

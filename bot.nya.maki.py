@@ -1,3 +1,7 @@
+
+# Inspired by CoolansX#7127`s Waifu bot
+# Many thanks to CoolansX#7127 for his help with Regex
+
 import discord
 import requests
 from PIL import Image
