@@ -6,12 +6,12 @@ After=syslog.target network.target nss-lookup.target network-online.target
 [Service]
 #Environment="LD_LIBRARY_PATH=./linux64"
 Type=simple
-ExecStart=/usr/bin/python3 /home/admin/bot.nya/bot.nya.h4vey.py
+ExecStart=/usr/bin/python3 $HOME/nya.bot/$(bot__name)
 Restart=on-failure
 User=admin
-#WorkingDirectory=/home/admin/nya.bot
-StandardOutput=append:/var/log/nya.bot.h4vey.log
-StandardError=append:/var/log/nya.bot.h4vey.err
+# WorkingDirectory=$HOME/nya.bot
+StandardOutput=append:/var/log/$(bot_name).log
+StandardError=append:/var/log/$(bot_name).err
 
 [Install]
 WantedBy=multi-user.target
