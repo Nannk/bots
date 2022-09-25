@@ -5,13 +5,17 @@ import discord
 import requests
 import sys
 import re
+import random
 
-user=sys.argv[1]
+user = sys.argv[1]
 token = sys.argv[2]
 
 #discord hate devs
 intents = discord.Intents(guild_messages =  True, guilds = True, messages = True, emojis = True, webhooks = True, message_content = True )
 nyabot = discord.Client(intents=intents)
+
+
+add_nya_flag = False
 
 # change the users avatar
 async def pfpchange(targetImageUrl):
@@ -29,6 +33,12 @@ async def msg_edit(message,edit):
 async def default():
     await nyabot.user.edit(username = 'nya.bot')
 
+#add nya randomly inbetween the words
+async def add_nya(string):
+    l = string.split(" ")
+    l.insert(random.randint(0,(len(l)-1)),"nya,")
+    return " ".join(i for i in l)
+
 @nyabot.event
 async def on_ready():
     print ('Logged in as {0.user}'.format(nyabot))
@@ -37,7 +47,15 @@ async def on_ready():
 @nyabot.event
 async def on_message(message):
     msgauthor = str(message.author)
-    oldmessage = str(message.content)
+    global add_nya_flag
+
+    #check if the feature is active
+    if(add_nya_flag):
+        oldmessage = await add_nya(str(message.content))
+    else:
+        oldmessage = str(message.content)
+
+    #ignore messages with attachments
     if(len(message.attachments)>0):
         return
 
@@ -52,6 +70,12 @@ async def on_message(message):
 
     #get the right messages
     if(msgauthor == user):
+
+        #toggle the add_nya_flag
+        if(message.content == 'nya:toggle'):
+            add_nya_flag = not add_nya_flag
+            return
+
         #ignore message if it starts with a escape sequence
         if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list()) or message.content.startswith('nya')):
             return
