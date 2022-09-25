@@ -41,7 +41,7 @@ async def add_nya(string):
     l = string.split(" ")
     for i in l[:-1]:
         if( len(i) > 3 and random.randint(0,10) > 6):
-            res += f'{i}, nya, '
+            res += f'{i} nya, '
         else:
             res += f'{i} '
     res += f'{l[-1]}'
