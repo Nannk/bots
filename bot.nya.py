@@ -20,6 +20,11 @@ async def pfpchange(targetImageUrl):
     await nyabot.user.edit(avatar=reqpfp.content)
     return
 
+# edit the message
+async def msg_edit(message,edit):
+    message.edit(content=edit)
+    return
+
 #default function
 async def default():
     await nyabot.user.edit(username = 'nya.bot')
@@ -47,7 +52,8 @@ async def on_message(message):
 
     #get the right messages
     if(msgauthor == user):
-        if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list())):
+        #ignore message if it starts with a escape sequence
+        if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list()) or message.content.startswith('nya')):
             return
 
         #command to change the pfp
