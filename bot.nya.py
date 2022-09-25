@@ -33,7 +33,7 @@ async def msg_edit(message,edit):
 async def default():
     await nyabot.user.edit(username = 'nya.bot')
 
-#add nya randomly inbetween the words
+#add nya randomly inbetween the words. CoolansX wrote this funktion
 async def add_nya(string):
     l = string.split(" ")
     l.insert(random.randint(0,(len(l)-1)),"nya,")
