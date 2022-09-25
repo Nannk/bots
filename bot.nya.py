@@ -72,7 +72,7 @@ async def on_message(message):
     if(msgauthor == user):
 
         #toggle the add_nya_flag
-        if(message.content == 'nya:toggle'):
+        if(message.content == 'nya|toggle'):
             add_nya_flag = not add_nya_flag
             return
 
