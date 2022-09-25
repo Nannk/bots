@@ -29,15 +29,23 @@ async def msg_edit(message,edit):
     message.edit(content=edit)
     return
 
-#default function
-async def default():
-    await nyabot.user.edit(username = 'nya.bot')
+#add 1 nya randomly inbetween the words. One nya per message. CoolansX wrote this funktion
+#async def add_nya(string):
+#    l = string.split(" ")
+#    l.insert(random.randint(0,(len(l)-1)),"nya,")
+#    return " ".join(i for i in l)
 
-#add nya randomly inbetween the words. CoolansX wrote this funktion
+#add nya randomly in between the words. Multiple nyas per message
 async def add_nya(string):
+    res = ""
     l = string.split(" ")
-    l.insert(random.randint(0,(len(l)-1)),"nya,")
-    return " ".join(i for i in l)
+    for i in l[:-1]:
+        if( len(i) > 3 and random.randint(0,10) > 5):
+            res += f'{i}, nya, '
+        else:
+            res += f'{i} '
+    res += f'{l[-1]}'
+    return res
 
 @nyabot.event
 async def on_ready():
@@ -60,7 +68,7 @@ async def on_message(message):
         return
 
     #debug feature
-    if(message.content.startswith('/ping')):
+    if(message.content.startswith('nya|ping')):
         await message.channel.send('uwu')
         return
 
@@ -82,8 +90,8 @@ async def on_message(message):
             return
 
         #command to change the pfp
-        if(message.content.startswith('/pfpchange')):
-            await pfpchange(message.content.split("|")[1]) #command should look like this: "/pfpchange|link_to_new_pfp"
+        if(message.content.startswith('nya|pfpchange')):
+            await pfpchange(message.content.split("|")[2]) #command should look like this: "/pfpchange|link_to_new_pfp"
             await message.delete()
             await message.channel.send("Profile Picture succesfully changed")
             return
@@ -107,6 +115,10 @@ async def on_message(message):
 
         elif(str(message.content)[-1] == ','):
             newmessage = f'{oldmessage} nya~'
+
+#        elif(str(message.content)[-1] == ' '):
+#            btwmessage = oldmessage[:-1]
+#            newmessage = f'{btwmessage}, nya~'
 
         else:
             newmessage = f'{oldmessage}, nya~'
