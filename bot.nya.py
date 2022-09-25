@@ -74,6 +74,7 @@ async def on_message(message):
         #toggle the add_nya_flag
         if(message.content == 'nya|toggle'):
             add_nya_flag = not add_nya_flag
+            await message.channel.send(f'{add_nya_flag}')
             return
 
         #ignore message if it starts with a escape sequence
