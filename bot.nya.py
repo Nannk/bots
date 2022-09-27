@@ -85,10 +85,6 @@ async def on_message(message):
             await message.channel.send(f'{add_nya_flag}')
             return
 
-        #ignore message if it starts with a escape sequence
-        if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list()) or message.content.startswith('nya')):
-            return
-
         #command to change the pfp
         if(message.content.startswith('nya|pfpchange')):
             await pfpchange(message.content.split("|")[2]) #command should look like this: "/pfpchange|link_to_new_pfp"
@@ -96,7 +92,11 @@ async def on_message(message):
             await message.channel.send("Profile Picture succesfully changed")
             return
 
-        #check for sentense enders
+        #ignore message if it starts with a escape sequence
+        if(message.content.startswith('\>') or message.content.startswith('https://cdn.discordapp.com/emojis/') or (not re.findall("^:([^:]*):$", oldmessage)==list()) or message.content.startswith('nya')):
+            return
+
+                #check for sentense enders
         if(str(message.content)[-1] == '?'):
             btwmessage = oldmessage[:-1]
             newmessage = f'{btwmessage}, nya~ ?'
